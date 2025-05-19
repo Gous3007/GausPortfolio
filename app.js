@@ -11,6 +11,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.json());
+app.use(cors()); // Enable CORS for all routes
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

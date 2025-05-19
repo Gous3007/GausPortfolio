@@ -246,3 +246,62 @@ $('.quick-links li').hover(
     $(this).find('i').removeClass('fa-beat');
   }
 );
+
+
+  // Form validation and submission handling (unchanged from original)
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('seoAuditForm');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitText = submitBtn.querySelector('.submit-text');
+    const spinner = submitBtn.querySelector('.spinner-border');
+
+    // Form validation
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        // Show loading spinner
+        submitText.textContent = 'Analyzing...';
+        spinner.classList.remove('d-none');
+        submitBtn.disabled = true;
+      }
+
+      form.classList.add('was-validated');
+    });
+
+    // URL validation enhancement
+    const urlInput = document.getElementById('websiteUrl');
+    urlInput.addEventListener('blur', function () {
+      let url = this.value.trim();
+
+      // Add https:// if no protocol specified
+      if (url && !/^https?:\/\//i.test(url)) {
+        this.value = 'https://' + url;
+      }
+    });
+
+    // Name validation - ensure it's at least 2 words
+    const nameInput = document.getElementById('fullName');
+    nameInput.addEventListener('blur', function () {
+      const name = this.value.trim();
+      if (name && name.split(' ').filter(word => word.length > 0).length < 2) {
+        this.setCustomValidity('Please enter your full name (first and last name)');
+      } else {
+        this.setCustomValidity('');
+      }
+    });
+
+    // Email validation enhancement
+    const emailInput = document.getElementById('userEmail');
+    emailInput.addEventListener('blur', function () {
+      const email = this.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email && !emailRegex.test(email)) {
+        this.setCustomValidity('Please enter a valid email address');
+      } else {
+        this.setCustomValidity('');
+      }
+    });
+  });
