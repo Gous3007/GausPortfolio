@@ -115,14 +115,18 @@ router.get('/thank-you', (req, res) => {
   }, 3000);
 });
 
-router.get('/download-case-study', (req, res) => {
-  const filePath = path.join(__dirname, '../public/images/seo-case-study.pdf');
-  res.download(filePath, 'SEO-Case-Study.pdf', (err) => {
-    if (err) {
-      console.error('Download error:', err);
-      res.status(500).send('Could not download file.');
-    }
-  });
+router.get('/download-case-study', async (req, res) => {
+  try {
+    const fileUrl = 'https://res.cloudinary.com/drppaqhmd/image/upload/v1747720889/axkttiqubpccijkmtcu0.pdf';
+    const fileName = 'SEO-Case-Study-0.1v.pdf';
+
+    const response = await axios.get(fileUrl, { responseType: 'stream' });
+
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    response.data.pipe(res);
+  } catch (error) {
+    res.status(500).send('Error downloading resume');
+  }
 });
 
 module.exports = router;
