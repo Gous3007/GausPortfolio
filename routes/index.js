@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
 router.get('/download-resume', async (req, res) => {
   try {
-    const fileUrl = 'https://res.cloudinary.com/drppaqhmd/image/upload/v1747639821/jfun0cg1inmmgznutjnk.pdf';
+    const fileUrl = 'https://res.cloudinary.com/drppaqhmd/image/upload/v1762177993/efe8u7k2zk3peyq8fiun.pdf';
     const fileName = 'Gaus_Resume.pdf';
 
     const response = await axios.get(fileUrl, { responseType: 'stream' });
